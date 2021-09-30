@@ -1,7 +1,3 @@
-carbonplan
-carbonplan[styles]
-carbonplan[data]
-zarr
-pathlib
-intake
-intake-xarray
+math
+json
+numpy

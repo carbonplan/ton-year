@@ -1,7 +1,3 @@
-import pathlib
+# flake8: noqa
 
-from intake import open_catalog
-
-cat_dir = pathlib.Path(__file__)
-cat_file = str(cat_dir.parent / "data/catalog.yaml")
-cat = open_catalog(cat_file)
+from .core import calculate_tonyears, get_irf_curve, print_benefit_report
