@@ -3,8 +3,8 @@
   height='48'
 />
 
-# python-project-template
-A carbonplan template for a developing a python project
+# carbonplan / tonyear
+Working repo to explore ton-year accounting methods. 
 
 [![CI](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml/badge.svg)](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml)
 ![MIT License][]
@@ -12,20 +12,7 @@ A carbonplan template for a developing a python project
 [mit license]: https://badgen.net/badge/license/MIT/blue
 
 
-This carbonplan repository contains a template for developing a python project. To start, click on the green [Use this template](https://github.com/carbonplan/python-project-template/generate) in the top right. This will allow you to create a new project using this base template.
-
-## Modifications
-
-### Updating project name
-
-`scripts` and `tests` contain filler .py files. Update/remove these with your project name.
-### Updating workflows/main.yaml
-
-In the workflows/main.yaml file, the pytest and docker sections of the github actions configuration are currently commented out. If you wish to add them, uncomment them.
-
-### Updating requirements.txt
-
-requirements.txt is currently empty. You can populate it with: ```pip3 freeze > requirements.txt```
+This repository is a sandbox for exploring and understanding ton-year accounting and related issues. We're working on replicating three ton-year accounting methods in `notebooks/tonyear.ipynb`, which is likely a good place to start poking around.
 
 ## license
 
