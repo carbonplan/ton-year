@@ -4,7 +4,7 @@ import math
 import numpy as np
 
 
-def get_irf_curve(curve_name):
+def get_baseline_curve(curve_name):
     if curve_name == 'joos_2013':
         # parameters from Joos et al., 2013 (Table 5)
         # https://doi.org/10.5194/acp-13-2793-2013
@@ -24,13 +24,13 @@ def get_irf_curve(curve_name):
         tau = [0, 421.093, 70.5965, 21.42165, 3.41537]
         t_horizon = np.arange(1001)
     else:
-        raise ValueError('No IRF parameters by the name \'' + curve_name + '\'.')
+        raise ValueError('No baseline curve parameters by the name \'' + curve_name + '\'.')
 
-    irf_curve = [a[0]] * len(t_horizon)
+    baseline_curve = [a[0]] * len(t_horizon)
     for t in t_horizon:
         for i in np.arange(1, len(a)):
-            irf_curve[t] = irf_curve[t] + (a[i] * np.exp(-t / tau[i]))
-    return irf_curve
+            baseline_curve[t] = baseline_curve[t] + (a[i] * np.exp(-t / tau[i]))
+    return baseline_curve
 
 
 def get_discounted_curve(discount_rate, curve):
