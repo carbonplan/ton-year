@@ -15,7 +15,7 @@ jobs:
   #       python-version: [3.8]
   #   timeout-minutes: 20
   #   steps:
-  #     - uses: actions/checkout@v2.3.4
+  #     - uses: actions/checkout@v2.3.5
   #     - uses: conda-incubator/setup-miniconda@v2
   #       with:
   #         python-version: ${{ matrix.python-version }}
@@ -77,6 +77,6 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.3.5
       - uses: actions/setup-python@v2.2.2
       - uses: pre-commit/action@v2.0.3
