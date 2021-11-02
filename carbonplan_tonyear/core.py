@@ -145,9 +145,6 @@ def calculate_tonyears(
         # The IPCC method calculates calculates the ton-year benefit of an emission at t=delay
         # as the difference between the baseline atmospheric cost and the scenario atmospheric
         # cost, which is calculated over the period delay<=t<=time_horizon.
-        print(delay)
-        print(baseline)
-        print(baseline.dtype)
         scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
         scenario = get_discounted_curve(discount_rate, scenario)
         benefit = baseline_atm_cost - np.trapz(scenario[delay:])
