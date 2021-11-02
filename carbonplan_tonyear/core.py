@@ -1,5 +1,4 @@
 import json
-import math
 
 import numpy as np
 
@@ -62,7 +61,7 @@ def get_discounted_curve(discount_rate: float, curve: np.ndarray) -> np.ndarray:
     discounted_curve : np.ndarray
         Curve with discount rate applied.
     """
-    return np.asarray([x / math.pow(1 + discount_rate, i) for i, x in enumerate(curve)])
+    return curve / np.power(1 + discount_rate, np.arange(len(curve)))
 
 
 def print_benefit_report(method_output: dict) -> None:
