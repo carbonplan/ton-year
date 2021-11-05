@@ -15,7 +15,7 @@ PYTHON_REQUIRES = ">=3.7"
 description = "exploring ton-year accounting methods"
 
 setup(
-    name="carbonplan-tonyear",
+    name="tonyear",
     description=description,
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
