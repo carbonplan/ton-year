@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from carbonplan_tonyear import calculate_tonyears, get_baseline_curve, print_benefit_report
+from tonyear import calculate_tonyears, get_baseline_curve, print_benefit_report
 
 
 @pytest.mark.parametrize('curve_name', ['joos_2013', 'ipcc_2007', 'ipcc_2000'])
