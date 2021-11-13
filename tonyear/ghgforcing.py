@@ -1,4 +1,5 @@
-# Module developed from: https://github.com/gschivley/ghgforcing/blob/master/ghgforcing/ghgforcing.py
+# Module developed from:
+# https://github.com/gschivley/ghgforcing/blob/master/ghgforcing/ghgforcing.py
 # The MIT License (MIT)
 
 # Copyright (c) 2016 Greg Schivley
@@ -24,7 +25,7 @@
 
 import numpy as np
 import pandas as pd
-from scipy.stats import multivariate_normal, norm
+from scipy.stats import multivariate_normal
 
 
 def CO2_AR5(t, **kwargs):
@@ -44,49 +45,76 @@ def CO2_AR5(t, **kwargs):
     return IRF
 
 
-def CO2(runs: int=100, t_horizon: int=1001, **kwargs):
-    
+def CO2(runs: int = 100, t_horizon: int = 1001, **kwargs):
+    """Runs a monte carlo simulation for the Joos_2013 baseline IRF curve
+    using uncertainty parameters for the Joos_2013 curve calculated by
+    Olivie and Peters (2013): https://esd.copernicus.org/articles/4/267/2013/
+
+    Parameters
+    ----------
+    runs : int
+        Number of runs for Monte Carlo simulation.
+
+    t_horizon : int
+        Length of the time horizon over which baseline curve is
+        calculated (years)
+
+    Returns
+    -------
+    summary: pd.DataFrame
+        Dataframe with 'mean', '+sigma', and '-sigma' columns summarizing
+        results of Monte Carlo simulation.
+
+    results: np.array
+        Results from all Monte Carlo runs.
+    """
+
     results = np.zeros((t_horizon, runs))
     time = np.arange(t_horizon)
-    
+
     # Monte Carlo simulations
 
     # sigma and x are from Olivie and Peters (2013) Table 5 (J13 values)
     # They are the covariance and mean arrays for CO2 IRF uncertainty
-    sigma = np.array([[0.129, -0.058, 0.017,    -0.042,    -0.004,    -0.009],
-                    [-0.058, 0.167,    -0.109,    0.072,    -0.015,    0.003],
-                    [0.017,    -0.109,    0.148,    -0.043,    0.013,    -0.013],
-                    [-0.042, 0.072,    -0.043,    0.090,    0.009,    0.006],
-                    [-0.004, -0.015, 0.013,    0.009,    0.082,    0.013],
-                    [-0.009, 0.003,    -0.013,    0.006,    0.013,    0.046]])
+    sigma = np.array(
+        [
+            [0.129, -0.058, 0.017, -0.042, -0.004, -0.009],
+            [-0.058, 0.167, -0.109, 0.072, -0.015, 0.003],
+            [0.017, -0.109, 0.148, -0.043, 0.013, -0.013],
+            [-0.042, 0.072, -0.043, 0.090, 0.009, 0.006],
+            [-0.004, -0.015, 0.013, 0.009, 0.082, 0.013],
+            [-0.009, 0.003, -0.013, 0.006, 0.013, 0.046],
+        ]
+    )
 
-    x = np.array([5.479, 2.913,    0.496, 0.181, 0.401, -0.472])
+    x = np.array([5.479, 2.913, 0.496, 0.181, 0.401, -0.472])
 
     p_samples = multivariate_normal.rvs(x, sigma, runs)
-    p_df = pd.DataFrame(p_samples, columns=['t1', 't2', 't3', 'b1','b2','b3'])
+    p_df = pd.DataFrame(p_samples, columns=['t1', 't2', 't3', 'b1', 'b2', 'b3'])
 
     p_exp = np.exp(p_df)
-    a0 = (1 / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])).values
     a1 = p_exp['b1'] / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])
     a2 = p_exp['b2'] / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])
     a3 = p_exp['b3'] / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])
 
-    tau1=p_exp['t1']
-    tau2=p_exp['t2']
-    tau3=p_exp['t3']
+    tau1 = p_exp['t1']
+    tau2 = p_exp['t2']
+    tau3 = p_exp['t3']
 
     for count in np.arange(runs):
-        co2_kwargs = {'a1' : a1[count],
-                    'a2' : a2[count],
-                    'a3' : a3[count],
-                    'tau1' : tau1[count],
-                    'tau2' : tau2[count],
-                    'tau3' : tau3[count]}
+        co2_kwargs = {
+            'a1': a1[count],
+            'a2': a2[count],
+            'a3': a3[count],
+            'tau1': tau1[count],
+            'tau2': tau2[count],
+            'tau3': tau3[count],
+        }
 
         irf = CO2_AR5(time, **co2_kwargs)
         results[:, count] = irf
 
-    summary = pd.DataFrame(columns = ['mean', '-2sigma', '+2sigma', '5th', '95th'])
+    summary = pd.DataFrame(columns=['mean', '-2sigma', '+2sigma', '5th', '95th'])
     summary['mean'] = np.mean(results, axis=1)
     summary['+2sigma'] = summary['mean'] + (1.96 * np.std(results, axis=1))
     summary['-2sigma'] = summary['mean'] - (1.96 * np.std(results, axis=1))
