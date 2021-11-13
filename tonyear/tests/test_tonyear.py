@@ -20,6 +20,19 @@ def test_get_baseline_curve_raises_invalid_args():
         _ = get_baseline_curve('foo')
 
 
+def test_baseline_curve_values():
+    """
+    Test values taken from Joos 2013, Table 4, Best estimates for time-integrated IRF
+    https://doi.org/10.5194/acp-13-2793-2013
+    """
+    curve = get_baseline_curve('joos_2013')
+    assert round(np.trapz(curve[:21]), 1) == 14.2
+    assert round(np.trapz(curve[:51]), 1) == 30.3
+    assert round(np.trapz(curve[:101]), 1) == 52.4
+    assert round(np.trapz(curve[:501])) == 184
+    assert round(np.trapz(curve[:1001])) == 310
+
+
 @pytest.mark.parametrize('curve_name', ['joos_2013', 'ipcc_2007', 'ipcc_2000'])
 @pytest.mark.parametrize('method', ['mc', 'lashof', 'ipcc'])
 @pytest.mark.parametrize('time_horizon', [1, 100, 1001])
@@ -40,6 +53,37 @@ def test_calculate_tonyears(curve_name, method, time_horizon, delay, discount_ra
         ('num_for_equivalence', float),
     ]:
         assert isinstance(m[k], t)
+
+
+def test_ipcc_tonyear_values():
+    """
+    Test values taken from IPCC 2000
+    https://archive.ipcc.ch/ipccreports/sres/land_use/index.php?idp=74
+    """
+    curve = get_baseline_curve('ipcc_2000')
+    mc = calculate_tonyears('mc', curve, 100, 46, 0)
+    assert round(mc['baseline_atm_cost']) == 46
+    assert round(mc['benefit']) == 46
+
+    lashof = calculate_tonyears('lashof', curve, 100, 46, 0)
+    assert round(lashof['baseline_atm_cost']) == 46
+    assert round(lashof['benefit']) == 17
+
+    ipcc = calculate_tonyears('ipcc', curve, 100, 46, 0)
+    assert round(ipcc['baseline_atm_cost']) == 46
+    assert round(ipcc['benefit']) == 17
+
+
+def test_ncx_tonyear_values():
+    """
+    Test taken from NCX methodology 2020, Forests and Carbon: A Guide for Buyers and Policymakers
+    """
+    curve = get_baseline_curve('ipcc_2007')
+    m = calculate_tonyears('mc', curve, 100, 1, 0)
+    m_discounted = calculate_tonyears('mc', curve, 100, 1, 0.033)
+    assert round(m['baseline_atm_cost']) == 48
+    assert round(m_discounted['baseline_atm_cost']) == 17
+    assert round(m_discounted['baseline_atm_cost'] / m['benefit']) == 17
 
 
 def test_calculate_tonyears_raises_invalid_args():
