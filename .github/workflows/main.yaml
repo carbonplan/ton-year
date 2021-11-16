@@ -32,7 +32,7 @@ jobs:
           python -m pip list
       - name: Running Tests
         run: |
-          python -m pytest --mypy --cov=./ --cov-report=xml --verbose
+          python -m pytest --mypy --cov=./ --cov-report=xml --verbose ./tonyear
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0
         if: ${{ matrix.python-version }} == 3.9
