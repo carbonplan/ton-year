@@ -55,11 +55,4 @@ jobs:
           python -m pip install mypy
       - name: mypy check
         run: |
-          mypy dac_costing
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: actions/setup-python@v2.2.2
-      - uses: pre-commit/action@v2.0.3
+          mypy tonyear
