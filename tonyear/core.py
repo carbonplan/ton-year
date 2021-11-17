@@ -3,7 +3,7 @@ import json
 import numpy as np
 
 
-def get_baseline_curve(curve_name: str, t_horizon: int = 1001) -> np.ndarray:
+def get_baseline_curve(curve_name: str, t_horizon: int = 1001) -> list:
     """Build the baseline curve
 
     Parameters
