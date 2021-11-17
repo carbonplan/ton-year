@@ -1,0 +1,4 @@
+[run]
+omit =
+    tonyear/tests/*
+    setup.py
