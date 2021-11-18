@@ -1,7 +1,13 @@
 import numpy as np
 import pytest
 
-from tonyear import calculate_tonyears, get_baseline_curve, print_benefit_report
+from tonyear import (
+    calculate_tonyears,
+    get_baseline_curve,
+    joos_2013,
+    joos_2013_monte_carlo,
+    print_benefit_report,
+)
 
 
 @pytest.mark.parametrize('curve_name', ['joos_2013', 'ipcc_2007', 'ipcc_2000'])
@@ -113,3 +119,27 @@ def test_print_benefit_report():
     }
     ret_val = print_benefit_report(method_dict)
     assert ret_val is None
+
+
+@pytest.mark.parametrize('t_horizon', [1, 100, 1001])
+def test_joos_2013(t_horizon):
+    """
+    Test the the values returned from the Joos 2013 IRF curve creation in the ghgfocing
+    module match the values returned by get_baseline_curve.
+    """
+    curve = joos_2013(t_horizon)
+    assert len(curve) == t_horizon
+    assert np.issubdtype(curve.dtype, np.floating)
+    assert curve.all() == get_baseline_curve('joos_2013', t_horizon=t_horizon).all()
+
+
+def test_joos_2013_monte_carlo_raises_invalid_args():
+    with pytest.raises(ValueError, match='number of runs must be >1'):
+        _ = joos_2013_monte_carlo(1, 1001)
+
+
+@pytest.mark.parametrize('runs', [100, 500])
+@pytest.mark.parametrize('t_horizon', [1, 500, 1001])
+def test_joos_2013_monte_carlo(runs, t_horizon):
+    summary, results = joos_2013_monte_carlo(runs=runs, t_horizon=t_horizon)
+    assert results.shape == (t_horizon, runs)

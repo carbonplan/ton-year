@@ -28,9 +28,19 @@ import pandas as pd
 from scipy.stats import multivariate_normal
 
 
-def CO2_AR5(t, **kwargs):
+def joos_2013(t_horizon, **kwargs):
     """Returns the IRF for CO2 using parameter values from IPCC AR5/Joos et al (2013)
     Keyword arguments are parameter values.
+
+    Parameters
+    ----------
+    t_horizon : int
+        Length of the time horizon (years)
+
+    Returns
+    -------
+    IRF : np.ndarray
+        IRF curve in the form of an 1D array
     """
 
     a0 = kwargs.get('a0', 0.2173)
@@ -41,11 +51,12 @@ def CO2_AR5(t, **kwargs):
     tau2 = kwargs.get('tau2', 36.54)
     tau3 = kwargs.get('tau3', 4.304)
 
+    t = np.arange(t_horizon)
     IRF = a0 + a1 * np.exp(-t / tau1) + a2 * np.exp(-t / tau2) + a3 * np.exp(-t / tau3)
     return IRF
 
 
-def CO2(runs: int = 100, t_horizon: int = 1001, **kwargs):
+def joos_2013_monte_carlo(runs: int = 100, t_horizon: int = 1001, **kwargs):
     """Runs a monte carlo simulation for the Joos_2013 baseline IRF curve
     using uncertainty parameters for the Joos_2013 curve calculated by
     Olivie and Peters (2013): https://esd.copernicus.org/articles/4/267/2013/
@@ -53,7 +64,7 @@ def CO2(runs: int = 100, t_horizon: int = 1001, **kwargs):
     Parameters
     ----------
     runs : int
-        Number of runs for Monte Carlo simulation.
+        Number of runs for Monte Carlo simulation. Must be >1.
 
     t_horizon : int
         Length of the time horizon over which baseline curve is
@@ -69,8 +80,10 @@ def CO2(runs: int = 100, t_horizon: int = 1001, **kwargs):
         Results from all Monte Carlo runs.
     """
 
+    if runs <= 1:
+        raise ValueError('number of runs must be >1')
+
     results = np.zeros((t_horizon, runs))
-    time = np.arange(t_horizon)
 
     # Monte Carlo simulations
 
@@ -111,7 +124,7 @@ def CO2(runs: int = 100, t_horizon: int = 1001, **kwargs):
             'tau3': tau3[count],
         }
 
-        irf = CO2_AR5(time, **co2_kwargs)
+        irf = joos_2013(t_horizon, **co2_kwargs)
         results[:, count] = irf
 
     summary = pd.DataFrame(columns=['mean', '-2sigma', '+2sigma', '5th', '95th'])
