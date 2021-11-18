@@ -7,6 +7,7 @@
 Working repo to explore ton-year accounting methods.
 
 [![CI](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml/badge.svg)](https://github.com/carbonplan/python-project-template/actions/workflows/main.yaml)
+[![codecov](https://codecov.io/gh/carbonplan/ton-year/branch/main/graph/badge.svg?token=1PB0ZJ5WGW)](https://codecov.io/gh/carbonplan/ton-year)
 ![MIT License][]
 
 [mit license]: https://badgen.net/badge/license/MIT/blue
