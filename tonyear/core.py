@@ -11,7 +11,8 @@ def get_baseline_curve(curve_name: str, t_horizon: int = 1001) -> np.ndarray:
     curve_name : str
         Name of baseline curve
     t_horizon : int
-        Length of the time horizon (years)
+        Length of the time horizon (years after impulse). The default is 1001, which translates to 1000 years after the
+        initial impulse at index 0.
 
     Returns
     -------
@@ -96,7 +97,8 @@ def get_avoided_comparison(
     baseline_curve: np.array
         CO2 IRF curve
     integration_time: int
-        time period to evaluate equivalence claim; does _not_ have to equal time_horizon from IRF curve generation
+        years after impulse to evaluate equivalence claim. N.B., does _not_ have to equal time_horizon from IRF curve
+        generation.
 
     Returns
     -------
@@ -106,10 +108,12 @@ def get_avoided_comparison(
     delay_length = tonyear_calc["parameters"]["delay"]
     avoided_size = DELAY_SIZE / tonyear_calc["num_for_equivalence"]
 
-    baseline_crf = np.trapz(baseline_curve[: integration_time + 1])
-    avoid_crf = np.trapz(baseline_curve[: integration_time + 1] * avoided_size)
+    integration_idx = integration_time + 1 # effect through year x requires integrating to x+1
 
-    integate_to = integration_time - delay_length + 1
+    baseline_crf = np.trapz(baseline_curve[: integration_idx])
+    avoid_crf = np.trapz(baseline_curve[:integration_idx] * avoided_size)
+
+    integate_to = integration_idx - delay_length
     delay_crf = baseline_crf - np.trapz(baseline_curve[:integate_to])
     return {
         "delay_length": delay_length,
@@ -136,9 +140,9 @@ def calculate_tonyears(
         Array modeling the residence of an emission in the atmosphere over time, i.e. a decay
         curve / impulse response function
     time_horizon : int
-        Specifies the period over which the impact of an emission is considered (years)
+        Specifies the period over which the impact of an emission is considered (years after impulse).
     delay : int
-        Specifies the emission delay for which a ton-year benefit will be calculated (years)
+        Specifies the emission delay for which a ton-year benefit will be calculated (years after impulse)
     discount_rate : float
         Specifies the discount rate to apply time preference to both costs and benefits over the
         time horizon
