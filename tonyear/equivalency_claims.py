@@ -24,7 +24,8 @@ def main():
         store.append(avoided_comparison)
 
     data = pd.DataFrame(store)
-    data['ratio'] = (data['delay_crf'] - data['avoided_crf']) / data['avoided_crf']
+    data['ratio'] = data['delay_crf'] / data['avoided_crf']
+
     data.to_csv(f'{TARGET_DIR}/equivalency_data.csv', float_format="%.3f", index=False)
 
 if __name__ == '__main__':

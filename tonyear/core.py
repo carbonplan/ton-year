@@ -106,10 +106,10 @@ def get_avoided_comparison(
     delay_length = tonyear_calc["parameters"]["delay"]
     avoided_size = DELAY_SIZE / tonyear_calc["num_for_equivalence"]
 
-    baseline_crf = np.trapz(baseline_curve[:integration_time])
-    avoid_crf = np.trapz(baseline_curve[:integration_time] * avoided_size)
+    baseline_crf = np.trapz(baseline_curve[: integration_time + 1])
+    avoid_crf = np.trapz(baseline_curve[: integration_time + 1] * avoided_size)
 
-    integate_to = integration_time - delay_length
+    integate_to = integration_time - delay_length + 1
     delay_crf = baseline_crf - np.trapz(baseline_curve[:integate_to])
     return {
         "delay_length": delay_length,
