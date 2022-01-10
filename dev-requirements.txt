@@ -1,4 +1,5 @@
 pytest
 pytest-cov
 pytest-mypy
+types-setuptools
 -r requirements.txt
