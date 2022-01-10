@@ -40,7 +40,7 @@ def test_baseline_curve_values() -> None:
 
 
 @pytest.mark.parametrize('curve_name', ['joos_2013', 'ipcc_2007', 'ipcc_2000'])
-@pytest.mark.parametrize('method', ['mc', 'lashof', 'ipcc'])
+@pytest.mark.parametrize('method', ['mc', 'lashof'])
 @pytest.mark.parametrize('time_horizon', [1, 100, 1001])
 @pytest.mark.parametrize('delay', [0, 1, 46])
 @pytest.mark.parametrize('discount_rate', [0, 0.1])
@@ -74,10 +74,6 @@ def test_ipcc_tonyear_values() -> None:
     lashof = calculate_tonyears('lashof', curve, 100, 46, 0)
     assert round(lashof['baseline_atm_cost']) == 46
     assert round(lashof['benefit']) == 17
-
-    ipcc = calculate_tonyears('ipcc', curve, 100, 46, 0)
-    assert round(ipcc['baseline_atm_cost']) == 46
-    assert round(ipcc['benefit']) == 17
 
 
 def test_ncx_tonyear_values() -> None:
