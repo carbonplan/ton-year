@@ -28,7 +28,7 @@ import pandas as pd
 from scipy.stats import multivariate_normal
 
 
-def joos_2013(t_horizon, **kwargs):
+def joos_2013(t_horizon: int, **kwargs) -> np.ndarray:
     """Returns the IRF for CO2 using parameter values from IPCC AR5/Joos et al (2013)
     Keyword arguments are parameter values.
 
@@ -56,27 +56,28 @@ def joos_2013(t_horizon, **kwargs):
     return IRF
 
 
-def joos_2013_monte_carlo(runs: int = 100, t_horizon: int = 1001, **kwargs):
-    """Runs a monte carlo simulation for the Joos_2013 baseline IRF curve
-    using uncertainty parameters for the Joos_2013 curve calculated by
+def joos_2013_monte_carlo(
+    runs: int = 100, t_horizon: int = 1001, **kwargs
+) -> tuple[pd.DataFrame, np.ndarray]:
+    """Runs a monte carlo simulation for the Joos_2013 baseline IRF curve.
+
+    This function uses uncertainty parameters for the Joos_2013 curve calculated by
     Olivie and Peters (2013): https://esd.copernicus.org/articles/4/267/2013/
 
     Parameters
     ----------
     runs : int
         Number of runs for Monte Carlo simulation. Must be >1.
-
     t_horizon : int
         Length of the time horizon over which baseline curve is
         calculated (years)
 
     Returns
     -------
-    summary: pd.DataFrame
+    summary : pd.DataFrame
         Dataframe with 'mean', '+sigma', and '-sigma' columns summarizing
         results of Monte Carlo simulation.
-
-    results: np.array
+    results : np.ndarray
         Results from all Monte Carlo runs.
     """
 
