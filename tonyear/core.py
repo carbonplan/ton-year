@@ -85,12 +85,12 @@ def calculate_tonyears(
     method: str, baseline: np.ndarray, time_horizon: int, delay: int, discount_rate: float
 ) -> dict:
     """This function calculates the benefit of a delayed emission according one
-    of three ton-year accounting methods.
+    of two ton-year accounting methods.
 
     Parameters
     ----------
     method : str
-        The ton-year accounting method (Moura-Costa: 'mc', or Lashof: 'lashof')
+        The ton-year accounting method (Moura Costa: 'mc', or Lashof: 'lashof')
     baseline : np.ndarray
         Array modeling the residence of an emission in the atmosphere over time, i.e. a decay
         curve / impulse response function
@@ -100,7 +100,8 @@ def calculate_tonyears(
         Specifies the emission delay for which a ton-year benefit will be calculated (years)
     discount_rate : float
         Specifies the discount rate to apply time preference to both costs and benefits over the
-        time horizon
+        time horizon. Extreme caution should be used when applying discounting within ton-year
+        accounting. See documentation for more details.
 
     Returns
     -------
