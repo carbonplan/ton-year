@@ -24,7 +24,7 @@ Working repo to explore ton-year accounting methods.
 
 
 
-This repository is a sandbox for exploring and understanding ton-year accounting and related issues. We're working on replicating three ton-year accounting methods in `notebooks/tonyear.ipynb`, which is likely a good place to start poking around.
+This repository is a sandbox for exploring and understanding ton-year accounting and related issues. We're working on replicating two ton-year accounting methods in `notebooks/tonyear.ipynb`, which is likely a good place to start poking around.
 
 ## license
 
