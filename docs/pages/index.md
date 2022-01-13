@@ -1,12 +1,11 @@
 import Section from '../components/section'
+import DocGrid from '../components/docgrid'
 
 # Ton-year
 
-This project helps explore and understand the concept of ton-year accounting.
+Ton-year is a open-source Python project for exploring and understanding the concept of ton-year accounting.
 
-1. [Quick start](./quick-start)
-2. [How-to-guide](./how-to-guide)
-3. [Conceptual guide](./overview)
-4. [API Reference](api-reference)
+<DocGrid></DocGrid>
+
 
 export default ({ children }) => <Section name='intro'>{children}</Section>
