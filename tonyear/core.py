@@ -85,12 +85,12 @@ def calculate_tonyears(
     method: str, baseline: np.ndarray, time_horizon: int, delay: int, discount_rate: float
 ):
     """This function calculates the benefit of a delayed emission according one
-    of three ton-year accounting methods.
+    of two ton-year accounting methods.
 
     Parameters
     ----------
     method : str
-        The ton-year accounting method (Moura-Costa: 'mc', Lashof: 'lashof', or IPCC 'ipcc')
+        The ton-year accounting method (Moura Costa: 'mc', or Lashof: 'lashof')
     baseline : np.ndarray
         Array modeling the residence of an emission in the atmosphere over time, i.e. a decay
         curve / impulse response function
@@ -100,7 +100,8 @@ def calculate_tonyears(
         Specifies the emission delay for which a ton-year benefit will be calculated (years)
     discount_rate : float
         Specifies the discount rate to apply time preference to both costs and benefits over the
-        time horizon
+        time horizon. Extreme caution should be used when applying discounting within ton-year
+        accounting. See documentation for more details.
 
     Returns
     -------
@@ -140,21 +141,14 @@ def calculate_tonyears(
         scenario = get_discounted_curve(discount_rate, scenario)
         benefit = -np.trapz(scenario[:delay_timesteps])
 
-    elif method == 'ipcc':
-        # The IPCC method calculates calculates the ton-year benefit of an emission at t=delay
-        # as the difference between the baseline atmospheric cost and the scenario atmospheric
-        # cost, which is calculated over the period delay<=t<=time_horizon.
+    elif method == 'lashof':
+        # The lashof method calculates calculates the ton-year benefit of an emission at t=delay
+        # as the atmospheric cost that no longer occurs within the time horizon. This can also
+        # be understood as the difference between the baseline atmospheric cost and the scenario
+        # atmospheric cost, calculated over the period delay<=t<=time_horizon.
         scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
         scenario = get_discounted_curve(discount_rate, scenario)
         benefit = baseline_atm_cost - np.trapz(scenario[delay:])
-
-    elif method == 'lashof':
-        # The Lashof method calculates the ton-year benefit of an emission at t=delay
-        # as the atmospheric cost that no longer occurs within the time horizon. The
-        # benefit calculation is thus focused the period time_horizon<=t<=(time_horizon+delay).
-        scenario = np.concatenate((np.zeros(delay), baseline))
-        scenario = get_discounted_curve(discount_rate, scenario)
-        benefit = np.trapz(scenario[time_horizon:])
 
     else:
         raise ValueError(f'No ton-year accounting method called {method}')
