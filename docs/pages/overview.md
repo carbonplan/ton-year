@@ -1,7 +1,7 @@
 import Section from '../components/section'
 
-# Conceptual Overview
+# Conceptual overview
 
 TODO
 
-export default ({ children }) => <Section name='Conceptual Overview'>{children}</Section>
+export default ({ children }) => <Section name='Overview'>{children}</Section>

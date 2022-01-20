@@ -10,7 +10,7 @@ with open("requirements.txt") as f:
 with open("README.md") as f:
     LONG_DESCRIPTION = f.read()
 
-PYTHON_REQUIRES = ">=3.9"
+PYTHON_REQUIRES = ">=3.7"
 
 description = "exploring ton-year accounting methods"
 

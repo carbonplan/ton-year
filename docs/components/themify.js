@@ -134,7 +134,7 @@ const instructions = [
     },
     processNode: (node, children, index) => {
       return (
-        <Row key={index} columns={6} sx={{ mt: [3, 3, 3, 4] }}>
+        <Row key={index} columns={6} sx={{ wordBreak: 'break-all', mt: [3, 3, 3, 4] }}>
           <Column start={1} width={2}>
             <Box sx={{ fontFamily: 'mono' }}>{children[1]}</Box>
           </Column>
@@ -155,10 +155,10 @@ const instructions = [
         if (d.props?.children.length > 0)
           return (
             <Row key={i} columns={6} sx={{ mt: [3, 3, 3, 4] }}>
-              <Column start={1} width={2}>
-                <Box sx={{ fontFamily: 'mono' }}>{d.props.children[0]}</Box>
+              <Column start={1} width={4}>
+                <Box sx={{ fontFamily: 'mono', wordBreak: 'break-all' }}>{d.props.children[0]}</Box>
               </Column>
-              <Column start={3} width={4}>
+              <Column start={5} width={2}>
                 {d.props.children[2]}
               </Column>
             </Row>

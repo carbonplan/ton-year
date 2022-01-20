@@ -8,7 +8,7 @@ const APIReference = ({ body }) => {
   return (
     <Box>
       <Section name='API'>
-        <Themed.h1>API Reference</Themed.h1>
+        <Themed.h1>API reference</Themed.h1>
         <Themify html={body} />
       </Section>
     </Box>

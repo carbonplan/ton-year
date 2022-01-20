@@ -105,7 +105,7 @@ const Sidenav = ({ active, expanded }) => {
                         display: 'block',
                         textDecoration: 'none',
                         color:
-                          label.toLowerCase() === active
+                          label.toLowerCase() === active.toLowerCase()
                             ? 'primary'
                             : 'secondary',
                         '&:hover': {

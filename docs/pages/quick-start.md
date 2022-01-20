@@ -1,6 +1,6 @@
 import Section from '../components/section'
 
-# Quick Start
+# Quick start
 
 TODO
 

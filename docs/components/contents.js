@@ -1,6 +1,4 @@
 export const contents = {
-  'Tutorials': ['Quick-start'],
-  'How-to Guides': ['How-to-guide'],
-  'Conceptual': ['Overview'],
-  'Reference': ['API-reference']
+  'Getting Started': ['Overview', 'Quick start', 'How-to guide'],
+  'Reference': ['API']
 }

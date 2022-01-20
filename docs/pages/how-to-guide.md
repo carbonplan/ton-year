@@ -1,6 +1,6 @@
 import Section from '../components/section'
 
-# How-to Guide
+# How-to guide
 
 <!-- TODO: Either render the notebook here or link directly to the notebook (in the sidebar)
  -->
