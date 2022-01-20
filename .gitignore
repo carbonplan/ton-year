@@ -134,3 +134,6 @@ dmypy.json
 
 # npm
 node_modules/
+
+# Docs builds
+docs/bin

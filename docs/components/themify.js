@@ -48,7 +48,7 @@ const styleClasses = {
         py: [3],
         fontFamily: 'mono',
         letterSpacing: 'mono',
-        fontSize: [1],
+        fontSize: [1, 1, 1, 2],
         color: 'primary',
         mb: [3, 3, 3, 4],
       }}
@@ -63,7 +63,7 @@ const styleClasses = {
   ),
   'viewcode-link': ({ children }) => (
     <RotatingArrow
-      sx={{ ml: [2], width: 14, position: 'relative', top: '8px', mt: '-10px' }}
+      sx={{ ml: [2], width: 12, position: 'relative', top: '9px', mt: '-10px' }}
     />
   ),
   classifier: ({ children }) => (
@@ -133,15 +133,31 @@ const instructions = [
       )
     },
     processNode: (node, children, index) => {
+      const indices = Array(Math.round(children.length / 3))
+        .fill(0)
+        .map((_, d) => 3 * d + 1)
+
       return (
-        <Row key={index} columns={6} sx={{ wordBreak: 'break-all', mt: [3, 3, 3, 4] }}>
-          <Column start={1} width={2}>
-            <Box sx={{ fontFamily: 'mono' }}>{children[1]}</Box>
-          </Column>
-          <Column start={3} width={4}>
-            {children[2]}
-          </Column>
-        </Row>
+        <Box key={index}>
+        {indices.map((d, i) => {
+          return (
+            <Row
+              key={i}
+              columns={6}
+              sx={{ wordBreak: 'break-all', mt: [3, 3, 3, 4] }}
+            >
+              <Column start={1} width={2}>
+                <Box sx={{ fontSize: [1, 1, 1, 2], fontFamily: 'mono' }}>
+                  {children[d]}
+                </Box>
+              </Column>
+              <Column start={3} width={4}>
+                {children[d+1]}
+              </Column>
+            </Row>
+          )
+        })}
+        </Box>
       )
     },
   },
@@ -155,10 +171,18 @@ const instructions = [
         if (d.props?.children.length > 0)
           return (
             <Row key={i} columns={6} sx={{ mt: [3, 3, 3, 4] }}>
-              <Column start={1} width={4}>
-                <Box sx={{ fontFamily: 'mono', wordBreak: 'break-all' }}>{d.props.children[0]}</Box>
+              <Column start={1} width={3}>
+                <Box
+                  sx={{
+                    fontSize: [1, 1, 1, 2],
+                    fontFamily: 'mono',
+                    wordBreak: 'break-all',
+                  }}
+                >
+                  {d.props.children[0]}
+                </Box>
               </Column>
-              <Column start={5} width={2}>
+              <Column start={4} width={3}>
                 {d.props.children[2]}
               </Column>
             </Row>
