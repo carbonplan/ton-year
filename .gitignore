@@ -70,6 +70,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/generated
 
 # PyBuilder
 target/
@@ -127,3 +128,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# next.js documentation
+.next
+
+# npm
+node_modules/
+
+# Docs builds
+docs/bin

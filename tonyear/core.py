@@ -83,7 +83,7 @@ def print_benefit_report(method_output: dict) -> None:
 
 def calculate_tonyears(
     method: str, baseline: np.ndarray, time_horizon: int, delay: int, discount_rate: float
-):
+) -> dict:
     """This function calculates the benefit of a delayed emission according one
     of two ton-year accounting methods.
 
@@ -168,7 +168,7 @@ def calculate_tonyears(
     }
 
 
-def write_json(collection, output):
+def write_json(collection, output) -> None:
     '''helper function to write collection to a local json file'''
     with open(output, "w") as f:
         f.write(json.dumps(collection))
