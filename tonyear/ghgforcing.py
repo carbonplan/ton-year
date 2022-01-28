@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from typing import Tuple
 
 import numpy as np
 import pandas as pd
@@ -58,7 +59,7 @@ def joos_2013(t_horizon: int, **kwargs) -> np.ndarray:
 
 def joos_2013_monte_carlo(
     runs: int = 100, t_horizon: int = 1001, **kwargs
-) -> tuple[pd.DataFrame, np.ndarray]:
+) -> Tuple[pd.DataFrame, np.ndarray]:
     """Runs a monte carlo simulation for the Joos_2013 baseline IRF curve.
 
     This function uses uncertainty parameters for the Joos_2013 curve calculated by
