@@ -25,7 +25,7 @@
     "theme-ui": "^0.12.1"
   },
   "devDependencies": {
-    "@carbonplan/prettier": "^1.1.0",
+    "@carbonplan/prettier": "^1.2.0",
     "prettier": "^2.5.1"
   }
 }

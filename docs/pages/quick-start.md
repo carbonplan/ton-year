@@ -38,4 +38,6 @@ mm = tonyear.calculate_tonyears(
 )
 ```
 
-export default ({ children }) => <Section name='Quick Start'>{children}</Section>
+export default ({ children }) => (
+  <Section name='Quick Start'>{children}</Section>
+)

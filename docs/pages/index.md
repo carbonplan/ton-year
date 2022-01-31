@@ -15,5 +15,4 @@ Beyond that, here are some additional resources to help you get started:
 1. [How-to-guide](./how-to-guide)
 1. [API Reference](api)
 
-
 export default ({ children }) => <Section name='intro'>{children}</Section>
