@@ -13,6 +13,6 @@ Beyond that, here are some additional resources to help you get started:
 1. [Conceptual overview](./ton-year/overview)
 1. [Quick start](./ton-year/quick-start)
 1. [How-to-guide](./ton-year/how-to-guide)
-1. [API Reference](ton-year/api)
+1. [API Reference](./ton-year/api)
 
 export default ({ children }) => <Section name='intro'>{children}</Section>
