@@ -65,7 +65,7 @@ def get_discounted_curve(discount_rate: float, curve: np.ndarray) -> np.ndarray:
 
 
 def print_benefit_report(method_output: dict) -> None:
-    '''print the benefit report'''
+    '''Print the benefit report'''
     discount = str(round(method_output['parameters']['discount_rate'] * 100, 1))
     delay = str(method_output['parameters']['delay'])
     baseline_atm_cost = str(round(method_output['baseline_atm_cost'], 2))
