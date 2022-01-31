@@ -14,7 +14,7 @@ We chose to use the Joos et al., 2013 model over the other implementations becau
 
 We validated our implementation of the Joos et al., 2013 IRF by replicating it to the time-dependent remaining CO<sub>2</sub> fractions reported in Joos et al., 2013 (Section 4.1). We also replicated the time-integrated IRF mean values for the Joos et al, 2013 curve reported in the [IPCC AR5 Chapter 8 SM report (Table 8.SM.11)](https://www.ipcc.ch/site/assets/uploads/2018/07/WGI_AR5.Chap_.8_SM.pdf). All values were [replicated precisely](https://github.com/carbonplan/ton-year/blob/main/tonyear/tests/test_tonyear.py).
 
-One unintuitive aspect of how the impulse response functions are implemented is that the values in an array representing the curve mark the transition between years rather than the value for a year. The array starts when an emission is released into the atmosphere at t=0, index=0. If you are interested in examining the curve over the 100 years after the emission, you would be interested in the slice of the array from index=0 to index=100, inclusive. In other words, any array representing N years of the curve will have N+1 elements. This can get a little confusing because with Python’s zero-based indexing. In some places, like [`calculate_tonyears`](/ton-year/generated/tonyear.calculate_tonyears#tonyear.calculate_tonyears), we handle this logic for you.
+One unintuitive aspect of how the impulse response functions are implemented is that the values in an array representing the curve mark the transition between years rather than the value for a year. The array starts when an emission is released into the atmosphere at t=0, index=0. If you are interested in examining the curve over the 100 years after the emission, you would be interested in the slice of the array from index=0 to index=100, inclusive. In other words, any array representing N years of the curve will have N+1 elements. This can get a little confusing because of Python’s zero-based indexing. In some places, like [`calculate_tonyears`](/ton-year/generated/tonyear.calculate_tonyears#tonyear.calculate_tonyears), we handle this logic for you.
 
 ## Ton-year Methods
 
@@ -28,13 +28,14 @@ The Moura Costa method calculates the benefit of carbon storage in the most stra
 
 We implemented the Moura Costa method according to the description in [Moura Costa and Wilson, 2000](https://oxfordclimatepolicy.org/sites/default/files/10.1023%252FA_1009697625521.pdf).
 
-We validated our implementation of the Moura Costa method by replicating the values reported in the [IPCC Special Report on Land Use, Land-Use Change and Forestry (2000)](https://archive.ipcc.ch/ipccreports/sres/land_use/index.php?idp=74). We also precisely replicate the results communicated in [NCX’s 2020 Version 0.4 white paper](https://ncx.com/wp-content/uploads/2021/06/Forests-and-Carbon_A-Guide-for-Buyers-and-Policymakers_SilviaTerra2020_v0.4-2-1.pdf).
+We validated our implementation of the Moura Costa method by replicating the values reported in the [IPCC Special Report on Land Use, Land-Use Change and Forestry (2000)](https://archive.ipcc.ch/ipccreports/sres/land_use/index.php?idp=74). We also replicate the results communicated in [NCX’s 2020 Version 0.4 white paper](https://ncx.com/wp-content/uploads/2021/06/Forests-and-Carbon_A-Guide-for-Buyers-and-Policymakers_SilviaTerra2020_v0.4-2-1.pdf).
 
 ### Lashof
 
 The Lashof method looks only at the atmospheric outcomes of temporary storage and assumes that the temporarily stored carbon is fully re-emitted at the end of the storage period. Lashof’s benefit calculation asks how many ton-years of atmospheric impact are avoided within the specified time horizon.
 
-We implemented the method as described in [Fearnside, Lashof & Moura-Costa, 2000](https://doi.org/10.1023/A:1009625122628).
+We implemented the method as described in [
+, Lashof & Moura-Costa, 2000](https://doi.org/10.1023/A:1009625122628).
 
 We validated our implementation of the Lashof method by replicating the values reported in the [IPCC Special Report on Land Use, Land-Use Change and Forestry (2000)](https://archive.ipcc.ch/ipccreports/sres/land_use/index.php?idp=74).
 
@@ -45,7 +46,7 @@ We validated our implementation of the Lashof method by replicating the values r
 The choice of a time horizon specifies the period (in years) over which costs and benefits are considered. In our implementation of the ton-year accounting methods, a user may specify any time horizon from 1 <= t <= 1000. Though CO<sub>2</sub> emissions have atmospheric impacts for millenia, the time horizon is capped at 1000 years as this is the time period for which the modeled impulse response function is valid.
 
 While a 100-year time horizon is often used in policy conversations, it’s important to keep in the back of our minds that CO<sub>2</sub> stays in the atmosphere for significantly longer periods of time.
-[Pierrehumbert 2014](https://doi.org/10.1146/annurev-earth-060313-054843) provides an excellent review of this. [Fearnside 2001](https://doi.org/10.1023/A:1015885027530) helpfully explains that choosing shorter time horizons effectively increases the discount rate by implicitly valuing damages of CO<sub>2</sub> beyond the time horizon as zero.
+[Pierrehumbert 2014](https://doi.org/10.1146/annurev-earth-060313-054843) provides an excellent review of this.
 
 ### Delay
 
