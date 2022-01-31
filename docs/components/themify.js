@@ -139,24 +139,24 @@ const instructions = [
 
       return (
         <Box key={index}>
-        {indices.map((d, i) => {
-          return (
-            <Row
-              key={i}
-              columns={6}
-              sx={{ wordBreak: 'break-all', mt: [3, 3, 3, 4] }}
-            >
-              <Column start={1} width={2}>
-                <Box sx={{ fontSize: [1, 1, 1, 2], fontFamily: 'mono' }}>
-                  {children[d]}
-                </Box>
-              </Column>
-              <Column start={3} width={4}>
-                {children[d+1]}
-              </Column>
-            </Row>
-          )
-        })}
+          {indices.map((d, i) => {
+            return (
+              <Row
+                key={i}
+                columns={6}
+                sx={{ wordBreak: 'break-all', mt: [3, 3, 3, 4] }}
+              >
+                <Column start={1} width={2}>
+                  <Box sx={{ fontSize: [1, 1, 1, 2], fontFamily: 'mono' }}>
+                    {children[d]}
+                  </Box>
+                </Column>
+                <Column start={3} width={4}>
+                  {children[d + 1]}
+                </Column>
+              </Row>
+            )
+          })}
         </Box>
       )
     },

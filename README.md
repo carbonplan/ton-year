@@ -1,30 +1,32 @@
-<p align='left'>
-  <a href='https://carbonplan.org/#gh-light-mode-only'>
+<p align="left">
+  <a href="https://carbonplan.org/#gh-light-mode-only">
     <img
-      src='https://carbonplan-assets.s3.amazonaws.com/monogram/dark-small.png'
-      height='48px'
+      src="https://carbonplan-assets.s3.amazonaws.com/monogram/dark-small.png"
+      height="48px"
     />
   </a>
-  <a href='https://carbonplan.org/#gh-dark-mode-only'>
+  <a href="https://carbonplan.org/#gh-dark-mode-only">
     <img
-      src='https://carbonplan-assets.s3.amazonaws.com/monogram/light-small.png'
-      height='48px'
+      src="https://carbonplan-assets.s3.amazonaws.com/monogram/light-small.png"
+      height="48px"
     />
   </a>
 </p>
 
 # carbonplan / tonyear
-Working repo to explore ton-year accounting methods.
 
+Python package for understanding ton-year accounting
 
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/carbonplan/ton-year/main?style=flat-square)
-![GitHub](https://img.shields.io/github/license/carbonplan/ton-year?style=flat-square)
+![Codecov](https://img.shields.io/codecov/c/github/carbonplan/ton-year?style=flat-square)![GitHub](https://img.shields.io/github/license/carbonplan/ton-year?style=flat-square)
+![GitHub deployments](https://img.shields.io/github/deployments/carbonplan/ton-year/production?label=docs&style=flat-square)
+![PyPI](https://img.shields.io/pypi/v/tonyear?style=flat-square)
 
-[mit license]: https://badgen.net/badge/license/MIT/blue
+This repository implements two widely referenced ton-year accounting methods.
 
+Ton-year accounting refers to a family of approaches that quantify the benefit of temporarily storing carbon dioxide that might otherwise enter the atmosphere and exacerbate climate change. We’ve noticed growing interest in using ton-year accounting to generate carbon offsets – an arrangement that uses temporary storage of CO<sub>2</sub> to justify the on-going carbon pollution.
 
-
-This repository is a sandbox for exploring and understanding ton-year accounting and related issues. We're working on replicating two ton-year accounting methods in `notebooks/tonyear.ipynb`, which is likely a good place to start poking around.
+We originally wrote this code as a way to improve our understanding of the climate science, math, and assumptions underlying ton-year accounting methods. By sharing our code, we hope to help facilitate deep thinking about how we value temporary carbon storage. We wrote a short [explainer](https://carbonplan.org/research/ton-year-explainer) documenting what we’ve learned so far.
 
 ## license
 

@@ -106,14 +106,16 @@ def calculate_tonyears(
     Returns
     -------
     method_dict : dict
-        Dictionary with the following keys:
-            parameters: key parameters used for the calculation
-            baseline: array modeling baseline emission curve (discounted if applicable)
-            scenario: array modeling the scenario curve (discounted if applicable)
-            baseline_atm_cost: the cost of of a baseline emission (ton-years)
-            benefit: the benefit of delaying an emission, calculated according to specified
-            accounting method (ton-years)
-            num_for_equivalence: the ratio between the baseline cost and the benefit
+        Return dict with the following keys:
+
+        - `parameters` : key parameters used for the calculation
+        - `baseline` : array modeling baseline emission curve, discounted if applicable
+        - `scenario` : array modeling the scenario curve, discounted if applicable
+        - `baseline_atm_cost` : the cost of of a baseline emission
+        - `benefit` : the benefit of delaying an emission, calculated according to
+          specified accounting method
+        - `num_for_equivalence` : the ratio between the baseline cost and the benefit
+
     """
 
     if delay < 0:
