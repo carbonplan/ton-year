@@ -137,3 +137,5 @@ node_modules/
 
 # Docs builds
 docs/bin
+
+.DS_Store

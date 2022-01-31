@@ -1,3 +1,6 @@
+const isDev =
+  process.env.VERCEL_ENV === 'preview' || process.env.NODE_ENV === 'development'
+
 const slug = require('rehype-slug')
 
 const withMDX = require('@next/mdx')({
@@ -12,9 +15,10 @@ module.exports = withMDX({
   async rewrites() {
     return [
       {
-        source: '/api',
-        destination: '/api-reference',
+        source: '/ton-year/api',
+        destination: '/ton-year/api-reference',
       },
     ]
   },
+  assetPrefix: isDev ? '' : 'https://ton-year.docs.carbonplan.org',
 })

@@ -1,8 +1,8 @@
 import React from 'react'
 import { promises as fs } from 'fs'
 import { Box, Themed } from 'theme-ui'
-import Themify from '../components/themify'
-import Section from '../components/section'
+import Themify from '../../components/themify'
+import Section from '../../components/section'
 
 const APIReference = ({ body }) => {
   return (

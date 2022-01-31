@@ -1,4 +1,4 @@
-import Section from '../components/section'
+import Section from '../../components/section'
 
 # How-to guides
 
