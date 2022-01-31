@@ -61,11 +61,7 @@ const styleClasses = {
       {children}
     </Box>
   ),
-  'viewcode-link': ({ children }) => (
-    <RotatingArrow
-      sx={{ ml: [2], width: 12, position: 'relative', top: '9px', mt: '-10px' }}
-    />
-  ),
+  'viewcode-link': Noop,
   classifier: ({ children }) => (
     <Box as='span' sx={{ ml: [2], color: 'secondary' }}>
       {children}
@@ -120,6 +116,23 @@ const instructions = [
           {children}
         </Box>
       )
+    },
+  },
+  // collapse nested tables
+  {
+    shouldProcessNode: (node) => {
+      return (
+        node.name === 'dl' &&
+        node.attribs?.class &&
+        node.attribs.class === 'simple' &&
+        node.parent.name === 'dd' &&
+        node.parent.parent.name === 'dl' &&
+        node.parent.parent.attribs?.class &&
+        node.parent.parent.attribs?.class === 'simple'
+      )
+    },
+    processNode: (node, children, index) => {
+      return <Box key={index}>{children}</Box>
     },
   },
   // make tables from simple description lists

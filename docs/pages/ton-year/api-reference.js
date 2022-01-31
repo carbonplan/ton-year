@@ -4,7 +4,10 @@ import { Box, Themed } from 'theme-ui'
 import Themify from '../../components/themify'
 import Section from '../../components/section'
 
+const prefix = 'ton-year'
+
 const APIReference = ({ body }) => {
+  body = body.replace(/..\/generated/g, `../${prefix}/generated`)
   return (
     <Box>
       <Section name='API'>
