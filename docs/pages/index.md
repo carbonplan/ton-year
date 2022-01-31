@@ -2,7 +2,7 @@ import Section from '../components/section'
 
 # Ton-year
 
-This repository implements two widely referenced ton-year accounting methods.
+This project implements two widely referenced ton-year accounting methods.
 
 Ton-year accounting refers to a family of approaches that quantify the benefit of temporarily storing carbon dioxide that might otherwise enter the atmosphere and exacerbate climate change. We’ve noticed growing interest in using ton-year accounting to generate carbon offsets – an arrangement that uses temporary storage of CO<sub>2</sub> to justify the on-going carbon pollution.
 
