@@ -88,6 +88,28 @@ def test_ncx_tonyear_values() -> None:
     assert round(m_discounted['baseline_atm_cost'] / m['benefit']) == 17
 
 
+def test_car_tonyear_values() -> None:
+    """
+    Test taken from CAR Soil Enrichment Protocol methodology 2021
+    """
+    curve = get_baseline_curve('joos_2013')
+    car = calculate_tonyears('car', curve, 100, 1, 0)
+    assert round(car['num_for_equivalence']) == 100
+    car = calculate_tonyears('car', curve, 100, 50, 0)
+    assert round(car['num_for_equivalence']) == 2
+    car = calculate_tonyears('car', curve, 100, 100, 0)
+    assert round(car['num_for_equivalence']) == 1
+
+
+def test_qc_tonyear_values() -> None:
+    """
+    Test taken from the Quebec government's draft ton-year methodology
+    """
+    curve = get_baseline_curve('joos_2013')
+    qc = calculate_tonyears('qc', curve, 100, 30, 0)
+    assert round((qc['benefit'] / qc['baseline_atm_cost']), 1) == 0.4
+
+
 def test_calculate_tonyears_raises_invalid_args() -> None:
     with pytest.raises(ValueError, match='No ton-year accounting method called foo'):
         _ = calculate_tonyears('foo', np.arange(20), 10, 5, 0.1)

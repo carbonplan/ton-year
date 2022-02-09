@@ -90,7 +90,8 @@ def calculate_tonyears(
     Parameters
     ----------
     method : str
-        The ton-year accounting method (Moura Costa: 'mc', or Lashof: 'lashof')
+        The ton-year accounting method (Moura Costa: 'mc', Lashof: 'lashof', Climate Action
+        Reserve: 'car', or Quebec: 'qc')
     baseline : np.ndarray
         Array modeling the residence of an emission in the atmosphere over time, i.e. a decay
         curve / impulse response function
@@ -144,13 +145,30 @@ def calculate_tonyears(
         benefit = -np.trapz(scenario[:delay_timesteps])
 
     elif method == 'lashof':
-        # The lashof method calculates calculates the ton-year benefit of an emission at t=delay
+        # The Lashof method calculates calculates the ton-year benefit of an emission at t=delay
         # as the atmospheric cost that no longer occurs within the time horizon. This can also
         # be understood as the difference between the baseline atmospheric cost and the scenario
         # atmospheric cost, calculated over the period delay<=t<=time_horizon.
         scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
         scenario = get_discounted_curve(discount_rate, scenario)
         benefit = baseline_atm_cost - np.trapz(scenario[delay:])
+
+    elif method == 'car':
+        # The Climate Action Reserve method calculates the benefit of temporary carbon storage
+        # by (1) defining the duration of carbon storage considered equivalent to an emission
+        # and (2) awarding proportional credit linearly over the time horizon for more temporary
+        # storage.
+        scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
+        scenario = get_discounted_curve(discount_rate, scenario)
+        benefit = (1 / time_horizon) * baseline_atm_cost * delay
+
+    elif method == 'qc':
+        # The Quebec method calculates the benefit of temporary carbon storage by (1) defining
+        # the duration of carbon storage considered equivalent to an emission and (2) awarding
+        # credit over the time horizon in proportion to the shape of the IRF curve.
+        scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
+        scenario = get_discounted_curve(discount_rate, scenario)
+        benefit = np.trapz(baseline[: delay + 1])
 
     else:
         raise ValueError(f'No ton-year accounting method called {method}')

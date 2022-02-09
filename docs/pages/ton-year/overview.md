@@ -39,6 +39,35 @@ We implemented the method as described in [
 
 We validated our implementation of the Lashof method by replicating the values reported in the [IPCC Special Report on Land Use, Land-Use Change and Forestry (2000)](https://archive.ipcc.ch/ipccreports/sres/land_use/index.php?idp=74).
 
+### Climate Action Reserve
+
+The Climate Action Reserve (CAR) ton-year method calculates the benefit of temporary carbon storage
+by (1) defining the duration of carbon storage considered equivalent to an emission and (2) awarding
+proportional credit linearly over the time horizon for more temporary storage. In essence, the CAR method awards benefit linearly in proportion to the time_horizon of choice.
+
+CAR specifically defines 100 year storage as "completely mitigat[ing] an equal GHG emission
+elsewhere." In other words, CAR claims that storing 1 tCO2 for 100 years (100 ton-years of storage)
+is equivalent to a 1 tCO2 emission. Storing 1 tCO2 for 1 years (1 ton-years) would only provide
+1/100th of the benefit needed for equivalence. Similarly, storing 1 tCO2 for 20 years (20 ton-years)
+would provide 1/5th of the benefit needed for equivalence.
+
+We implemented the method as described in CAR's Soil Enrichment Protocol (V1) in section 3.5.5:
+https://www.climateactionreserve.org/wp-content/uploads/2020/10/Soil-Enrichment-Protocol-V1.0.pdf
+
+### Government of Quebec
+
+The governement of Quebec (specifically the Ministère de l’Environnement et de la Lutte contre les
+changements climatiques) has published a draft ton-year accounting method which (as of
+February 8 2022) was
+[presented](https://www.environnement.gouv.qc.ca/changements/carbone/credits-compensatoires/index-en.htm#developing-regulations-work)
+as a work in progress to "allow more offset credit projects to be carried out and to increase the
+supply of Québec credits..." The proposed method calculates the benefit of temporary carbon storage
+by (1) defining the duration of carbon storage considered equivalent to an emission and (2) awarding
+credit over the time horizon in proportion to the shape of the IRF curve.
+
+We implemented the method as described in a slide deck presenting the draft ton-year accounting approach:
+https://www.environnement.gouv.qc.ca/changements/carbone/credits-compensatoires/quebec-protocole-foret-en.pdf
+
 ## Parameters
 
 ### Time horizon
