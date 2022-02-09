@@ -90,7 +90,8 @@ def calculate_tonyears(
     Parameters
     ----------
     method : str
-        The ton-year accounting method (Moura Costa: 'mc', or Lashof: 'lashof')
+        The ton-year accounting method (Moura Costa: 'mc', Lashof: 'lashof', Climate Action
+        Reserve: 'car', or Quebec: 'qc')
     baseline : np.ndarray
         Array modeling the residence of an emission in the atmosphere over time, i.e. a decay
         curve / impulse response function
@@ -153,11 +154,18 @@ def calculate_tonyears(
         benefit = baseline_atm_cost - np.trapz(scenario[delay:])
 
     elif method == 'car':
+        # The Climate Action Reserve method calculates the benefit of temporary carbon storage
+        # by (1) defining the duration of carbon storage considered equivalent to an emission
+        # and (2) awarding proportional credit linearly over the time horizon for more temporary
+        # storage.
         scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
         scenario = get_discounted_curve(discount_rate, scenario)
         benefit = (1 / time_horizon) * baseline_atm_cost * delay
 
     elif method == 'qc':
+        # The Quebec method calculates the benefit of temporary carbon storage by (1) defining
+        # the duration of carbon storage considered equivalent to an emission and (2) awarding
+        # credit over the time horizon in proportion to the shape of the IRF curve.
         scenario = np.concatenate((np.zeros(delay), baseline))[:time_horizon_timesteps]
         scenario = get_discounted_curve(discount_rate, scenario)
         benefit = np.trapz(baseline[: delay + 1])
