@@ -1,5 +1,3 @@
-import Section from '../../components/section'
-
 # Conceptual Overview
 
 ## Carbon dioxide impulse response function
@@ -14,7 +12,7 @@ We chose to use the Joos et al., 2013 model over the other implementations becau
 
 We validated our implementation of the Joos et al., 2013 IRF by replicating it to the time-dependent remaining CO<sub>2</sub> fractions reported in Joos et al., 2013 (Section 4.1). We also replicated the time-integrated IRF mean values for the Joos et al, 2013 curve reported in the [IPCC AR5 Chapter 8 SM report (Table 8.SM.11)](https://www.ipcc.ch/site/assets/uploads/2018/07/WGI_AR5.Chap_.8_SM.pdf). All values were [replicated precisely](https://github.com/carbonplan/ton-year/blob/main/tonyear/tests/test_tonyear.py).
 
-One unintuitive aspect of how the impulse response functions are implemented is that the values in an array representing the curve mark the transition between years rather than the value for a year. The array starts when an emission is released into the atmosphere at t=0, index=0. If you are interested in examining the curve over the 100 years after the emission, you would be interested in the slice of the array from index=0 to index=100, inclusive. In other words, any array representing N years of the curve will have N+1 elements. This can get a little confusing because of Python’s zero-based indexing. In some places, like [`calculate_tonyears`](/ton-year/generated/tonyear.calculate_tonyears#tonyear.calculate_tonyears), we handle this logic for you.
+One unintuitive aspect of how the impulse response functions are implemented is that the values in an array representing the curve mark the transition between years rather than the value for a year. The array starts when an emission is released into the atmosphere at t=0, index=0. If you are interested in examining the curve over the 100 years after the emission, you would be interested in the slice of the array from index=0 to index=100, inclusive. In other words, any array representing N years of the curve will have N+1 elements. This can get a little confusing because of Python’s zero-based indexing. In some places, like [`calculate_tonyears`](https://ton-year.readthedocs.io/en/latest/generated/tonyear.calculate_tonyears#tonyear.calculate_tonyears), we handle this logic for you.
 
 ## Ton-year Methods
 
@@ -84,5 +82,3 @@ The delay specifies a temporary storage period (years) for which a ton-year bene
 ### Discount rate
 
 Specifies the discount rate to which is applied both costs and benefits over the time horizon. It is not particularly clear what the application of a discount rate within ton-year accounting is meant to represent, as financial discounting is designed for valuing monetary payments/damages over time. However, since discount rates are being used in real-world ton-year accounting applications, we include it as a parameter to enable replication and exploration of the implications. For more details, we’ve written a longer [explainer piece](https://carbonplan.org/research/ton-year-explainer) that goes into why we’re uncomfortable with applying discount rates directly to IRFs.
-
-export default ({ children }) => <Section name='Overview'>{children}</Section>

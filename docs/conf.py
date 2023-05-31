@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # sphinx-next documentation build configuration file.
 # Minimal sphinx configuration supporting export of API-docs to JSPN.
@@ -39,21 +38,24 @@ extensions = [
     "numpydoc",
     "IPython.sphinxext.ipython_directive",
     "IPython.sphinxext.ipython_console_highlighting",
+    "myst_parser",
 ]
 
 autosummary_generate = True
 numpydoc_class_members_toctree = False
 numpydoc_show_class_members = False
 
-# The suffix of source filenames.
-source_suffix = ".rst"
+# Sphinx project configuration
+source_suffix = [".rst", ".md"]
+needs_sphinx = "1.8"
+# The encoding of source files.
+source_encoding = "utf-8-sig"
+root_doc = "index"
 
-# The master toctree document.
-master_doc = "api"
 
 # General information about the project.
-project = u"tonyear"
-copyright = u"2021, CarbonPlan"
+project = "tonyear"
+copyright = "2021, CarbonPlan"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -70,7 +72,7 @@ language = "Python"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ["_build"]
+exclude_patterns = ["_build", "**.ipynb_checkpoints"]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -82,3 +84,20 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy", None),
 }
+
+
+# -- Options for HTML output ----------------------------------------------
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+
+html_title = "Ton-year"
+html_theme_options = {
+    "logo": {
+        "image_light": "_static/monogram-dark-cropped.png",
+        "image_dark": "_static/monogram-light-cropped.png",
+    }
+}
+html_theme = "sphinx_book_theme"
+html_title = ""
+repository = "carbonplan/ton-year"
+repository_url = "https://github.com/carbonplan/ton-year"

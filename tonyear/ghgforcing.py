@@ -44,13 +44,13 @@ def joos_2013(t_horizon: int, **kwargs) -> np.ndarray:
         IRF curve in the form of an 1D array
     """
 
-    a0 = kwargs.get('a0', 0.2173)
-    a1 = kwargs.get('a1', 0.224)
-    a2 = kwargs.get('a2', 0.2824)
-    a3 = kwargs.get('a3', 0.2763)
-    tau1 = kwargs.get('tau1', 394.4)
-    tau2 = kwargs.get('tau2', 36.54)
-    tau3 = kwargs.get('tau3', 4.304)
+    a0 = kwargs.get("a0", 0.2173)
+    a1 = kwargs.get("a1", 0.224)
+    a2 = kwargs.get("a2", 0.2824)
+    a3 = kwargs.get("a3", 0.2763)
+    tau1 = kwargs.get("tau1", 394.4)
+    tau2 = kwargs.get("tau2", 36.54)
+    tau3 = kwargs.get("tau3", 4.304)
 
     t = np.arange(t_horizon)
     IRF = a0 + a1 * np.exp(-t / tau1) + a2 * np.exp(-t / tau2) + a3 * np.exp(-t / tau3)
@@ -83,7 +83,7 @@ def joos_2013_monte_carlo(
     """
 
     if runs <= 1:
-        raise ValueError('number of runs must be >1')
+        raise ValueError("number of runs must be >1")
 
     results = np.zeros((t_horizon, runs))
 
@@ -105,35 +105,35 @@ def joos_2013_monte_carlo(
     x = np.array([5.479, 2.913, 0.496, 0.181, 0.401, -0.472])
 
     p_samples = multivariate_normal.rvs(x, sigma, runs)
-    p_df = pd.DataFrame(p_samples, columns=['t1', 't2', 't3', 'b1', 'b2', 'b3'])
+    p_df = pd.DataFrame(p_samples, columns=["t1", "t2", "t3", "b1", "b2", "b3"])
 
     p_exp = np.exp(p_df)
-    a1 = p_exp['b1'] / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])
-    a2 = p_exp['b2'] / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])
-    a3 = p_exp['b3'] / (1 + p_exp['b1'] + p_exp['b2'] + p_exp['b3'])
+    a1 = p_exp["b1"] / (1 + p_exp["b1"] + p_exp["b2"] + p_exp["b3"])
+    a2 = p_exp["b2"] / (1 + p_exp["b1"] + p_exp["b2"] + p_exp["b3"])
+    a3 = p_exp["b3"] / (1 + p_exp["b1"] + p_exp["b2"] + p_exp["b3"])
 
-    tau1 = p_exp['t1']
-    tau2 = p_exp['t2']
-    tau3 = p_exp['t3']
+    tau1 = p_exp["t1"]
+    tau2 = p_exp["t2"]
+    tau3 = p_exp["t3"]
 
     for count in np.arange(runs):
         co2_kwargs = {
-            'a1': a1[count],
-            'a2': a2[count],
-            'a3': a3[count],
-            'tau1': tau1[count],
-            'tau2': tau2[count],
-            'tau3': tau3[count],
+            "a1": a1[count],
+            "a2": a2[count],
+            "a3": a3[count],
+            "tau1": tau1[count],
+            "tau2": tau2[count],
+            "tau3": tau3[count],
         }
 
         irf = joos_2013(t_horizon, **co2_kwargs)
         results[:, count] = irf
 
-    summary = pd.DataFrame(columns=['mean', '-2sigma', '+2sigma', '5th', '95th'])
-    summary['mean'] = np.mean(results, axis=1)
-    summary['+2sigma'] = summary['mean'] + (1.96 * np.std(results, axis=1))
-    summary['-2sigma'] = summary['mean'] - (1.96 * np.std(results, axis=1))
-    summary['5th'] = np.percentile(results, 5, axis=1)
-    summary['95th'] = np.percentile(results, 95, axis=1)
+    summary = pd.DataFrame(columns=["mean", "-2sigma", "+2sigma", "5th", "95th"])
+    summary["mean"] = np.mean(results, axis=1)
+    summary["+2sigma"] = summary["mean"] + (1.96 * np.std(results, axis=1))
+    summary["-2sigma"] = summary["mean"] - (1.96 * np.std(results, axis=1))
+    summary["5th"] = np.percentile(results, 5, axis=1)
+    summary["95th"] = np.percentile(results, 95, axis=1)
 
     return summary, results
