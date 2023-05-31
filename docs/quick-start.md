@@ -1,5 +1,3 @@
-import Section from '../../components/section'
-
 # Quick start
 
 ## Dependencies
@@ -37,7 +35,3 @@ mm = tonyear.calculate_tonyears(
     discount_rate=0.0
 )
 ```
-
-export default ({ children }) => (
-  <Section name='Quick Start'>{children}</Section>
-)
