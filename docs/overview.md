@@ -2,15 +2,15 @@
 
 ## Carbon dioxide impulse response function
 
-Impulse response functions (IRFs) model the long-term change in atmospheric carbon dioxide (CO<sub>2</sub>) as a result of a CO<sub>2</sub> emission. IRFs model this change with a curve representing the proportion of an emission remaining in the atmosphere as a function of time.
+Impulse response functions (IRFs) model the long-term change in atmospheric carbon dioxide (`CO₂`) as a result of a `CO₂` emission. IRFs model this change with a curve representing the proportion of an emission remaining in the atmosphere as a function of time.
 
-Our analyses rely on the [Joos et al., 2013](https://doi.org/10.5194/acp-13-2793-2013) carbon dioxide IRF, which used data from fifteen climate models to derive a simplified, empirical function that characterizes the equilibrium response of CO<sub>2</sub> added to the atmosphere.
+Our analyses rely on the [Joos et al., 2013](https://doi.org/10.5194/acp-13-2793-2013) carbon dioxide IRF, which used data from fifteen climate models to derive a simplified, empirical function that characterizes the equilibrium response of `CO₂` added to the atmosphere.
 
 We also implemented two additional IRF curves to enable replication of published ton-year accounting results: the IRFs parameterized in the [IPCC AR4 2007 report (Chapter 2, page 213)](https://www.ipcc.ch/site/assets/uploads/2018/02/ar4-wg1-chapter2-1.pdf) and the IPCC [LULUCF Special Report 2000 (Chapter 2.3.6.3, Footnote 4)](https://www.ipcc.ch/site/assets/uploads/2018/02/ar4-wg1-chapter2-1.pdf).
 
 We chose to use the Joos et al., 2013 model over the other implementations because it was more recently modeled and because it’s possible to estimate [uncertainty in the Joos IRF parameters](https://doi.org/10.5194/esd-4-267-2013).
 
-We validated our implementation of the Joos et al., 2013 IRF by replicating it to the time-dependent remaining CO<sub>2</sub> fractions reported in Joos et al., 2013 (Section 4.1). We also replicated the time-integrated IRF mean values for the Joos et al, 2013 curve reported in the [IPCC AR5 Chapter 8 SM report (Table 8.SM.11)](https://www.ipcc.ch/site/assets/uploads/2018/07/WGI_AR5.Chap_.8_SM.pdf). All values were [replicated precisely](https://github.com/carbonplan/ton-year/blob/main/tonyear/tests/test_tonyear.py).
+We validated our implementation of the Joos et al., 2013 IRF by replicating it to the time-dependent remaining CO₂` fractions reported in Joos et al., 2013 (Section 4.1). We also replicated the time-integrated IRF mean values for the Joos et al, 2013 curve reported in the [IPCC AR5 Chapter 8 SM report (Table 8.SM.11)](https://www.ipcc.ch/site/assets/uploads/2018/07/WGI_AR5.Chap_.8_SM.pdf). All values were [replicated precisely](https://github.com/carbonplan/ton-year/blob/main/tonyear/tests/test_tonyear.py).
 
 One unintuitive aspect of how the impulse response functions are implemented is that the values in an array representing the curve mark the transition between years rather than the value for a year. The array starts when an emission is released into the atmosphere at t=0, index=0. If you are interested in examining the curve over the 100 years after the emission, you would be interested in the slice of the array from index=0 to index=100, inclusive. In other words, any array representing N years of the curve will have N+1 elements. This can get a little confusing because of Python’s zero-based indexing. In some places, like [`calculate_tonyears`](https://ton-year.readthedocs.io/en/latest/generated/tonyear.calculate_tonyears#tonyear.calculate_tonyears), we handle this logic for you.
 
@@ -43,7 +43,7 @@ The Climate Action Reserve (CAR) ton-year method calculates the benefit of tempo
 by (1) defining the duration of carbon storage considered equivalent to an emission and (2) awarding
 proportional credit linearly over the time horizon for more temporary storage. In essence, the CAR method awards benefit linearly in proportion to the time_horizon of choice.
 
-CAR specifically defines 100 year storage as "completely mitigat[ing] an equal GHG emission
+CAR specifically defines 100 year storage as "completely mitigating an equal GHG emission
 elsewhere." In other words, CAR claims that storing 1 tCO2 for 100 years (100 ton-years of storage)
 is equivalent to a 1 tCO2 emission. Storing 1 tCO2 for 1 years (1 ton-years) would only provide
 1/100th of the benefit needed for equivalence. Similarly, storing 1 tCO2 for 20 years (20 ton-years)
@@ -70,9 +70,9 @@ https://www.environnement.gouv.qc.ca/changements/carbone/credits-compensatoires/
 
 ### Time horizon
 
-The choice of a time horizon specifies the period (in years) over which costs and benefits are considered. In our implementation of the ton-year accounting methods, a user may specify any time horizon from 1 <= t <= 1000. Though CO<sub>2</sub> emissions have atmospheric impacts for millenia, the time horizon is capped at 1000 years as this is the time period for which the modeled impulse response function is valid.
+The choice of a time horizon specifies the period (in years) over which costs and benefits are considered. In our implementation of the ton-year accounting methods, a user may specify any time horizon from 1 <= t <= 1000. Though `CO₂` emissions have atmospheric impacts for millennia, the time horizon is capped at 1000 years as this is the time period for which the modeled impulse response function is valid.
 
-While a 100-year time horizon is often used in policy conversations, it’s important to keep in the back of our minds that CO<sub>2</sub> stays in the atmosphere for significantly longer periods of time.
+While a 100-year time horizon is often used in policy conversations, it’s important to keep in the back of our minds that `CO₂` stays in the atmosphere for significantly longer periods of time.
 [Pierrehumbert 2014](https://doi.org/10.1146/annurev-earth-060313-054843) provides an excellent review of this.
 
 ### Delay
