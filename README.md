@@ -19,7 +19,7 @@ Python package for understanding ton-year accounting
 
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/carbonplan/ton-year/main?style=flat-square)
 ![Codecov](https://img.shields.io/codecov/c/github/carbonplan/ton-year?style=flat-square)![GitHub](https://img.shields.io/github/license/carbonplan/ton-year?style=flat-square)
-![GitHub deployments](https://img.shields.io/github/deployments/carbonplan/ton-year/production?label=docs&style=flat-square)
+[![Documentation Status](https://readthedocs.org/projects/ton-year/badge/?version=latest)](https://ton-year.readthedocs.io/en/latest/?badge=latest)
 ![PyPI](https://img.shields.io/pypi/v/tonyear?style=flat-square)
 
 This repository implements two widely referenced ton-year accounting methods.
