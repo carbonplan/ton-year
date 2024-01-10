@@ -1,26 +1,20 @@
-<p align="left">
-  <a href="https://carbonplan.org/#gh-light-mode-only">
-    <img
-      src="https://carbonplan-assets.s3.amazonaws.com/monogram/dark-small.png"
-      height="48px"
-    />
-  </a>
-  <a href="https://carbonplan.org/#gh-dark-mode-only">
-    <img
-      src="https://carbonplan-assets.s3.amazonaws.com/monogram/light-small.png"
-      height="48px"
-    />
-  </a>
+<p align="left" >
+<a href='https://carbonplan.org'>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://carbonplan-assets.s3.amazonaws.com/monogram/light-small.png">
+  <img alt="CarbonPlan monogram." height="48" src="https://carbonplan-assets.s3.amazonaws.com/monogram/dark-small.png">
+</picture>
+</a>
 </p>
 
 # carbonplan / tonyear
 
 Python package for understanding ton-year accounting
 
-![GitHub branch checks state](https://img.shields.io/github/checks-status/carbonplan/ton-year/main?style=flat-square)
-![Codecov](https://img.shields.io/codecov/c/github/carbonplan/ton-year?style=flat-square)![GitHub](https://img.shields.io/github/license/carbonplan/ton-year?style=flat-square)
+[![CI](https://github.com/carbonplan/ton-year/actions/workflows/main.yaml/badge.svg)](https://github.com/carbonplan/ton-year/actions/workflows/main.yaml)
+![PyPI](https://img.shields.io/pypi/v/tonyear)
 [![Documentation Status](https://readthedocs.org/projects/ton-year/badge/?version=latest)](https://ton-year.readthedocs.io/en/latest/?badge=latest)
-![PyPI](https://img.shields.io/pypi/v/tonyear?style=flat-square)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This repository implements two widely referenced ton-year accounting methods.
 
@@ -30,8 +24,8 @@ We originally wrote this code as a way to improve our understanding of the clima
 
 ## license
 
-All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/) licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).
+All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/)-licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).
 
 ## about us
 
-CarbonPlan is a non-profit organization that uses data and science for climate action. We aim to improve the transparency and scientific integrity of climate solutions with open data and tools. Find out more at [carbonplan.org](https://carbonplan.org/) or get in touch by [opening an issue](https://github.com/carbonplan/ton-year/issues/new) or [sending us an email](mailto:hello@carbonplan.org).
+CarbonPlan is a nonprofit organization that uses data and science for climate action. We aim to improve the transparency and scientific integrity of climate solutions with open data and tools. Find out more at [carbonplan.org](https://carbonplan.org/) or get in touch by [opening an issue](https://github.com/carbonplan/ton-year/issues/new) or [sending us an email](mailto:hello@carbonplan.org).
